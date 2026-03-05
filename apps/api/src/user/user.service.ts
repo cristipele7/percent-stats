@@ -21,9 +21,6 @@ export class UserService {
     async findOne(findUniqueUserArgs: FindUniqueUserArgs): Promise<User> {
         const user = await prisma.user.findUnique({
             where: findUniqueUserArgs.where,
-            include: {
-                products: true,
-            },
         })
 
         if (!user) {
