@@ -14,7 +14,7 @@ export default function HomeLink() {
     return (
         <CustomView>
             <Link to={PAGES.Home}>
-                <CustomText style={themeStyles.title}>{t('home.title')}</CustomText>
+                <CustomText style={themeStyles.title}>{t('back_home_buttom_name')}</CustomText>
             </Link>
         </CustomView>
     )

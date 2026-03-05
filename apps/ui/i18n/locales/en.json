@@ -1,35 +1,5 @@
 {
-  "common": {
-    "users": "Users",
-    "products": "Products",
-    "edit": "Edit",
-    "remove": "Remove",
-    "back": "Back",
-    "name": "Name",
-    "type": "Type",
-    "add": "Add",
-    "cancel": "Cancel",
-    "save": "Save",
-    "loading": "Loading...",
-    "selectAnOption": "Select an option"
-  },
-  "home": {
-    "title": "Home"
-  },
-  "users": {
-    "addUserButton": "Add user",
-    "types": {
-      "ADMIN": "Admin",
-      "CLIENT": "Client"
-    }
-  },
-  "products": {
-    "noProducts": "No products",
-    "addProductButton": "Add product",
-    "types": {
-      "CLOTHES": "Clothes",
-      "SHOES": "Shoes",
-      "ELECTRONICS": "Electronics"
-    }
-  }
+  "loading_message": "Loading...",
+  "go_to_admin_buttom_name": "Go to Admin",
+  "back_home_buttom_name": "Back to Home"
 }

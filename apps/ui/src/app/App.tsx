@@ -1,8 +1,7 @@
 import React from 'react'
 import { NativeRouter, Route, Routes } from 'react-router-native'
 import HomePage from 'src/pages/HomePage'
-import UsersPage from 'src/pages/user/UsersPage'
-import UserPage from 'src/pages/user/UserPage'
+import AdminPage from 'src/pages/admin'
 import { ApolloProvider } from '@apollo/client/react'
 import { PAGES } from 'src/constants/pages'
 import LocaleSwitcher from 'src/components/LocaleSwitcher'
@@ -42,8 +41,7 @@ export const App = () => {
                                 Component={Platform.OS === 'web' ? DefaultPageWeb : HomePage}
                             />
                             <Route path={PAGES.Home} Component={HomePage} />
-                            <Route path={PAGES.Users} Component={UsersPage} />
-                            <Route path={PAGES.User} Component={UserPage} />
+                            <Route path={PAGES.Admin} Component={AdminPage} />
                         </Routes>
                     </CustomView>
                 </NativeRouter>

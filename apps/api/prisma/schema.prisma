@@ -37,7 +37,40 @@ model User {
   /// @Validator.IsString()
   /// @Validator.MaxLength(100)
   /// @Validator.MinLength(3)
-  name String?
+  name String
+}
+
+model Country {
+  id        String    @id @default(uuid())
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @default(now()) @updatedAt
+
+  /// @Validator.@IsInt()
+  apiId Int
+
+  /// @Validator.IsString()
+  /// @Validator.MaxLength(100)
+  /// @Validator.MinLength(3)
+  name String
+
+  leagues League[]
+}
+
+model League {
+  id        String    @id @default(uuid())
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @default(now()) @updatedAt
+
+  /// @Validator.@IsInt()
+  apiId Int
+
+  /// @Validator.IsString()
+  /// @Validator.MaxLength(100)
+  /// @Validator.MinLength(3)
+  name String
+
+  country   Country @relation(fields: [countryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  countryId String
 }
 
 enum UserType {

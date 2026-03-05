@@ -14,8 +14,8 @@ const HomePage = () => {
 
     return (
         <CustomView style={styles.container}>
-            <Link to={PAGES.Users}>
-                <CustomText style={themeStyles.title}>{t('common.users')}</CustomText>
+            <Link to={PAGES.Admin}>
+                <CustomText style={themeStyles.title}>{t('go_to_admin_buttom_name')}</CustomText>
             </Link>
         </CustomView>
     )
