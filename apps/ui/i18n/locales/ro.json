@@ -1,0 +1,35 @@
+{
+  "common": {
+    "users": "Utilizatori",
+    "products": "Produse",
+    "edit": "Editează",
+    "remove": "Șterge",
+    "back": "Înapoi",
+    "name": "Nume",
+    "type": "Tip",
+    "add": "Adaugă",
+    "cancel": "Anulează",
+    "save": "Salvează",
+    "loading": "Se incarcă...",
+    "selectAnOption": "Selectează o opțiune"
+  },
+  "home": {
+    "title": "Acasă"
+  },
+  "users": {
+    "addUserButton": "Adaugă utilizator",
+    "types": {
+      "ADMIN": "Administrator",
+      "CLIENT": "Client"
+    }
+  },
+  "products": {
+    "noProducts": "Nu există produse",
+    "addProductButton": "Adaugă produs",
+    "types": {
+      "CLOTHES": "Haine",
+      "SHOES": "Încălțăminte",
+      "ELECTRONICS": "Electronice"
+    }
+  }
+}
