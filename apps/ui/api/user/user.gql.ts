@@ -35,9 +35,9 @@ export const UPDATE_USER_MUTATION = gql`
     }
 `
 
-export const REMOVE_USER_MUTATION = gql`
-    mutation RemoveUser($id: String!) {
-        removeUser(where: { id: $id }) {
+export const DELETE_USER_MUTATION = gql`
+    mutation DeleteUser($id: String!) {
+        deleteUser(where: { id: $id }) {
             id
         }
     }

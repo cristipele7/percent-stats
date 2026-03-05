@@ -10,10 +10,6 @@ import {
 
 @Injectable()
 export class UserService {
-    create(createOneUserArgs: CreateOneUserArgs): Promise<User> {
-        return prisma.user.create(createOneUserArgs)
-    }
-
     findAll(): Promise<User[]> {
         return prisma.user.findMany()
     }
@@ -30,11 +26,15 @@ export class UserService {
         return user
     }
 
+    create(createOneUserArgs: CreateOneUserArgs): Promise<User> {
+        return prisma.user.create(createOneUserArgs)
+    }
+
     update(updateOneUserArgs: UpdateOneUserArgs): Promise<User> {
         return prisma.user.update(updateOneUserArgs)
     }
 
-    remove(deleteOneUserArgs: DeleteOneUserArgs): Promise<User> {
+    delete(deleteOneUserArgs: DeleteOneUserArgs): Promise<User> {
         return prisma.user.delete(deleteOneUserArgs)
     }
 }

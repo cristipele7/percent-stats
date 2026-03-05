@@ -12,11 +12,6 @@ import {
 export class UserResolver {
     constructor(private readonly userService: UserService) {}
 
-    @Mutation(() => User)
-    createUser(@Args() createOneUserArgs: CreateOneUserArgs) {
-        return this.userService.create(createOneUserArgs)
-    }
-
     @Query(() => [User])
     users() {
         return this.userService.findAll()
@@ -28,12 +23,17 @@ export class UserResolver {
     }
 
     @Mutation(() => User)
+    createUser(@Args() createOneUserArgs: CreateOneUserArgs) {
+        return this.userService.create(createOneUserArgs)
+    }
+
+    @Mutation(() => User)
     updateUser(@Args() updateOneUserArgs: UpdateOneUserArgs) {
         return this.userService.update(updateOneUserArgs)
     }
 
     @Mutation(() => User)
-    removeUser(@Args() deleteOneUserArgs: DeleteOneUserArgs) {
-        return this.userService.remove(deleteOneUserArgs)
+    deleteUser(@Args() deleteOneUserArgs: DeleteOneUserArgs) {
+        return this.userService.delete(deleteOneUserArgs)
     }
 }

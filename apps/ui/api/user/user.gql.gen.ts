@@ -7,7 +7,7 @@ export type GetUsersVariables = Types.Exact<{ [key: string]: never }>
 
 export type GetUsers = {
     __typename?: 'Query'
-    users: Array<{ __typename?: 'User'; id: string; type: Types.UserType; name?: string | null }>
+    users: Array<{ __typename?: 'User'; id: string; type: Types.UserType; name: string }>
 }
 
 export type GetUserVariables = Types.Exact<{
@@ -16,7 +16,7 @@ export type GetUserVariables = Types.Exact<{
 
 export type GetUser = {
     __typename?: 'Query'
-    user: { __typename?: 'User'; type: Types.UserType; name?: string | null }
+    user: { __typename?: 'User'; type: Types.UserType; name: string }
 }
 
 export type CreateUserVariables = Types.Exact<{
@@ -38,13 +38,13 @@ export type UpdateUser = {
     updateUser: { __typename?: 'User'; id: string }
 }
 
-export type RemoveUserVariables = Types.Exact<{
+export type DeleteUserVariables = Types.Exact<{
     id: Types.Scalars['String']['input']
 }>
 
-export type RemoveUser = {
+export type DeleteUser = {
     __typename?: 'Mutation'
-    removeUser: { __typename?: 'User'; id: string }
+    deleteUser: { __typename?: 'User'; id: string }
 }
 
 export const GetUsersDocument = /*#__PURE__*/ gql`
@@ -227,38 +227,38 @@ export function useUpdateUser(
 export type UpdateUserHookResult = ReturnType<typeof useUpdateUser>
 export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUser>
 export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<UpdateUser, UpdateUserVariables>
-export const RemoveUserDocument = /*#__PURE__*/ gql`
-    mutation RemoveUser($id: String!) {
-        removeUser(where: { id: $id }) {
+export const DeleteUserDocument = /*#__PURE__*/ gql`
+    mutation DeleteUser($id: String!) {
+        deleteUser(where: { id: $id }) {
             id
         }
     }
 `
-export type RemoveUserMutationFn = Apollo.MutationFunction<RemoveUser, RemoveUserVariables>
+export type DeleteUserMutationFn = Apollo.MutationFunction<DeleteUser, DeleteUserVariables>
 
 /**
- * __useRemoveUser__
+ * __useDeleteUser__
  *
- * To run a mutation, you first call `useRemoveUser` within a React component and pass it any options that fit your needs.
- * When your component renders, `useRemoveUser` returns a tuple that includes:
+ * To run a mutation, you first call `useDeleteUser` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteUser` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [removeUser, { data, loading, error }] = useRemoveUser({
+ * const [deleteUser, { data, loading, error }] = useDeleteUser({
  *   variables: {
  *      id: // value for 'id'
  *   },
  * });
  */
-export function useRemoveUser(
-    baseOptions?: Apollo.MutationHookOptions<RemoveUser, RemoveUserVariables>,
+export function useDeleteUser(
+    baseOptions?: Apollo.MutationHookOptions<DeleteUser, DeleteUserVariables>,
 ) {
     const options = { ...defaultOptions, ...baseOptions }
-    return Apollo.useMutation<RemoveUser, RemoveUserVariables>(RemoveUserDocument, options)
+    return Apollo.useMutation<DeleteUser, DeleteUserVariables>(DeleteUserDocument, options)
 }
-export type RemoveUserHookResult = ReturnType<typeof useRemoveUser>
-export type RemoveUserMutationResult = Apollo.MutationResult<RemoveUser>
-export type RemoveUserMutationOptions = Apollo.BaseMutationOptions<RemoveUser, RemoveUserVariables>
+export type DeleteUserHookResult = ReturnType<typeof useDeleteUser>
+export type DeleteUserMutationResult = Apollo.MutationResult<DeleteUser>
+export type DeleteUserMutationOptions = Apollo.BaseMutationOptions<DeleteUser, DeleteUserVariables>

@@ -1,5 +1,9 @@
 {
   "loading_message": "Loading...",
   "go_to_admin_buttom_name": "Go to Admin",
-  "back_home_buttom_name": "Back to Home"
+  "back_home_buttom_name": "Back to Home",
+  "country_name": "Country Name",
+  "country_api_id": "Country API ID",
+  "create_country_button_name": "Create Country",
+  "delete_country_button_name": "Delete Country"
 }

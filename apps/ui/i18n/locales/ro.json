@@ -1,5 +1,9 @@
 {
   "loading_message": "Se incarca...",
   "go_to_admin_buttom_name": "Mergi la Admin",
-  "back_home_buttom_name": "Inapoi Acasa"
+  "back_home_buttom_name": "Inapoi Acasa",
+  "country_name": "Numele tarii",
+  "country_api_id": "ID-ul tarii din API",
+  "create_country_button_name": "Creeaza tara",
+  "delete_country_button_name": "Sterge tara"
 }

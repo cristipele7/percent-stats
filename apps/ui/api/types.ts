@@ -20,6 +20,99 @@ export type Scalars = {
     DateTime: { input: any; output: any }
 }
 
+export type Country = {
+    __typename?: 'Country'
+    _count: CountryCount
+    /** @Validator.@IsInt() */
+    apiId: Scalars['Float']['output']
+    createdAt?: Maybe<Scalars['DateTime']['output']>
+    id: Scalars['ID']['output']
+    leagues?: Maybe<Array<League>>
+    name: Scalars['String']['output']
+    updatedAt?: Maybe<Scalars['DateTime']['output']>
+}
+
+export type CountryAvgAggregate = {
+    __typename?: 'CountryAvgAggregate'
+    apiId?: Maybe<Scalars['Float']['output']>
+}
+
+export type CountryCount = {
+    __typename?: 'CountryCount'
+    leagues: Scalars['Int']['output']
+}
+
+export type CountryCountAggregate = {
+    __typename?: 'CountryCountAggregate'
+    _all: Scalars['Int']['output']
+    apiId: Scalars['Int']['output']
+    createdAt: Scalars['Int']['output']
+    id: Scalars['Int']['output']
+    name: Scalars['Int']['output']
+    updatedAt: Scalars['Int']['output']
+}
+
+export type CountryCreateInput = {
+    apiId: Scalars['Float']['input']
+    createdAt?: InputMaybe<Scalars['DateTime']['input']>
+    id?: InputMaybe<Scalars['String']['input']>
+    leagues?: InputMaybe<LeagueCreateNestedManyWithoutCountryInput>
+    name: Scalars['String']['input']
+    updatedAt?: InputMaybe<Scalars['DateTime']['input']>
+}
+
+export type CountryMaxAggregate = {
+    __typename?: 'CountryMaxAggregate'
+    apiId?: Maybe<Scalars['Float']['output']>
+    createdAt?: Maybe<Scalars['DateTime']['output']>
+    id?: Maybe<Scalars['String']['output']>
+    name?: Maybe<Scalars['String']['output']>
+    updatedAt?: Maybe<Scalars['DateTime']['output']>
+}
+
+export type CountryMinAggregate = {
+    __typename?: 'CountryMinAggregate'
+    apiId?: Maybe<Scalars['Float']['output']>
+    createdAt?: Maybe<Scalars['DateTime']['output']>
+    id?: Maybe<Scalars['String']['output']>
+    name?: Maybe<Scalars['String']['output']>
+    updatedAt?: Maybe<Scalars['DateTime']['output']>
+}
+
+export type CountryScalarRelationFilter = {
+    is?: InputMaybe<CountryWhereInput>
+    isNot?: InputMaybe<CountryWhereInput>
+}
+
+export type CountrySumAggregate = {
+    __typename?: 'CountrySumAggregate'
+    apiId?: Maybe<Scalars['Float']['output']>
+}
+
+export type CountryWhereInput = {
+    AND?: InputMaybe<Array<CountryWhereInput>>
+    NOT?: InputMaybe<Array<CountryWhereInput>>
+    OR?: InputMaybe<Array<CountryWhereInput>>
+    apiId?: InputMaybe<FloatFilter>
+    createdAt?: InputMaybe<DateTimeFilter>
+    id?: InputMaybe<StringFilter>
+    leagues?: InputMaybe<LeagueListRelationFilter>
+    name?: InputMaybe<StringFilter>
+    updatedAt?: InputMaybe<DateTimeFilter>
+}
+
+export type CountryWhereUniqueInput = {
+    AND?: InputMaybe<Array<CountryWhereInput>>
+    NOT?: InputMaybe<Array<CountryWhereInput>>
+    OR?: InputMaybe<Array<CountryWhereInput>>
+    apiId?: InputMaybe<Scalars['Float']['input']>
+    createdAt?: InputMaybe<DateTimeFilter>
+    id?: InputMaybe<Scalars['String']['input']>
+    leagues?: InputMaybe<LeagueListRelationFilter>
+    name?: InputMaybe<StringFilter>
+    updatedAt?: InputMaybe<DateTimeFilter>
+}
+
 export type DateTimeFilter = {
     equals?: InputMaybe<Scalars['DateTime']['input']>
     gt?: InputMaybe<Scalars['DateTime']['input']>
@@ -38,18 +131,116 @@ export type EnumUserTypeFilter = {
     notIn?: InputMaybe<Array<UserType>>
 }
 
+export type FloatFilter = {
+    equals?: InputMaybe<Scalars['Float']['input']>
+    gt?: InputMaybe<Scalars['Float']['input']>
+    gte?: InputMaybe<Scalars['Float']['input']>
+    in?: InputMaybe<Array<Scalars['Float']['input']>>
+    lt?: InputMaybe<Scalars['Float']['input']>
+    lte?: InputMaybe<Scalars['Float']['input']>
+    not?: InputMaybe<FloatFilter>
+    notIn?: InputMaybe<Array<Scalars['Float']['input']>>
+}
+
+export type League = {
+    __typename?: 'League'
+    /** @Validator.@IsInt() */
+    apiId: Scalars['Float']['output']
+    country: Country
+    countryId: Scalars['String']['output']
+    createdAt?: Maybe<Scalars['DateTime']['output']>
+    id: Scalars['ID']['output']
+    name: Scalars['String']['output']
+    updatedAt?: Maybe<Scalars['DateTime']['output']>
+}
+
+export type LeagueCreateManyCountryInput = {
+    apiId: Scalars['Float']['input']
+    createdAt?: InputMaybe<Scalars['DateTime']['input']>
+    id?: InputMaybe<Scalars['String']['input']>
+    name: Scalars['String']['input']
+    updatedAt?: InputMaybe<Scalars['DateTime']['input']>
+}
+
+export type LeagueCreateManyCountryInputEnvelope = {
+    data: Array<LeagueCreateManyCountryInput>
+    skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type LeagueCreateNestedManyWithoutCountryInput = {
+    connect?: InputMaybe<Array<LeagueWhereUniqueInput>>
+    connectOrCreate?: InputMaybe<Array<LeagueCreateOrConnectWithoutCountryInput>>
+    create?: InputMaybe<Array<LeagueCreateWithoutCountryInput>>
+    createMany?: InputMaybe<LeagueCreateManyCountryInputEnvelope>
+}
+
+export type LeagueCreateOrConnectWithoutCountryInput = {
+    create: LeagueCreateWithoutCountryInput
+    where: LeagueWhereUniqueInput
+}
+
+export type LeagueCreateWithoutCountryInput = {
+    apiId: Scalars['Float']['input']
+    createdAt?: InputMaybe<Scalars['DateTime']['input']>
+    id?: InputMaybe<Scalars['String']['input']>
+    name: Scalars['String']['input']
+    updatedAt?: InputMaybe<Scalars['DateTime']['input']>
+}
+
+export type LeagueListRelationFilter = {
+    every?: InputMaybe<LeagueWhereInput>
+    none?: InputMaybe<LeagueWhereInput>
+    some?: InputMaybe<LeagueWhereInput>
+}
+
+export type LeagueWhereInput = {
+    AND?: InputMaybe<Array<LeagueWhereInput>>
+    NOT?: InputMaybe<Array<LeagueWhereInput>>
+    OR?: InputMaybe<Array<LeagueWhereInput>>
+    apiId?: InputMaybe<FloatFilter>
+    country?: InputMaybe<CountryScalarRelationFilter>
+    countryId?: InputMaybe<StringFilter>
+    createdAt?: InputMaybe<DateTimeFilter>
+    id?: InputMaybe<StringFilter>
+    name?: InputMaybe<StringFilter>
+    updatedAt?: InputMaybe<DateTimeFilter>
+}
+
+export type LeagueWhereUniqueInput = {
+    AND?: InputMaybe<Array<LeagueWhereInput>>
+    NOT?: InputMaybe<Array<LeagueWhereInput>>
+    OR?: InputMaybe<Array<LeagueWhereInput>>
+    apiId?: InputMaybe<Scalars['Float']['input']>
+    country?: InputMaybe<CountryScalarRelationFilter>
+    countryId?: InputMaybe<StringFilter>
+    createdAt?: InputMaybe<DateTimeFilter>
+    id?: InputMaybe<Scalars['String']['input']>
+    name?: InputMaybe<StringFilter>
+    updatedAt?: InputMaybe<DateTimeFilter>
+}
+
 export type Mutation = {
     __typename?: 'Mutation'
+    createCountry: Country
     createUser: User
-    removeUser: User
+    deleteCountry: Country
+    deleteUser: User
     updateUser: User
+}
+
+export type MutationCreateCountryArgs = {
+    data: CountryCreateInput
 }
 
 export type MutationCreateUserArgs = {
     data: UserCreateInput
 }
 
-export type MutationRemoveUserArgs = {
+export type MutationDeleteCountryArgs = {
+    where: CountryWhereUniqueInput
+}
+
+export type MutationDeleteUserArgs = {
     where: UserWhereUniqueInput
 }
 
@@ -60,6 +251,7 @@ export type MutationUpdateUserArgs = {
 
 export type Query = {
     __typename?: 'Query'
+    countries: Array<Country>
     user: User
     users: Array<User>
 }
@@ -92,7 +284,7 @@ export type User = {
     __typename?: 'User'
     createdAt?: Maybe<Scalars['DateTime']['output']>
     id: Scalars['ID']['output']
-    name?: Maybe<Scalars['String']['output']>
+    name: Scalars['String']['output']
     type: UserType
     updatedAt?: Maybe<Scalars['DateTime']['output']>
 }
@@ -110,7 +302,7 @@ export type UserCountAggregate = {
 export type UserCreateInput = {
     createdAt?: InputMaybe<Scalars['DateTime']['input']>
     id?: InputMaybe<Scalars['String']['input']>
-    name?: InputMaybe<Scalars['String']['input']>
+    name: Scalars['String']['input']
     type: UserType
     updatedAt?: InputMaybe<Scalars['DateTime']['input']>
 }
