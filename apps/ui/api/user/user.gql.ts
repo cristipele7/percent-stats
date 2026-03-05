@@ -15,11 +15,6 @@ export const GET_USER_QUERY = gql`
         user(where: { id: $id }) {
             type
             name
-            products {
-                id
-                type
-                name
-            }
         }
     }
 `

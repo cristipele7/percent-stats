@@ -1,4 +1,4 @@
-import { Prisma, ProductType, UserType } from '@prisma/client'
+import { Prisma, UserType } from '@prisma/client'
 import prisma from './'
 
 const id = 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa'
@@ -7,17 +7,6 @@ const USERS_SEED_DATA: Prisma.UserCreateInput[] = [
         id: id,
         name: 'Admin',
         type: UserType.ADMIN,
-    },
-]
-
-const PRODUCTS_SEED_DATA: Prisma.ProductCreateInput[] = [
-    {
-        id: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
-        name: 'T-shirt',
-        type: ProductType.CLOTHES,
-        user: {
-            connect: { id: id },
-        },
     },
 ]
 
@@ -32,21 +21,6 @@ async function main() {
                     where: { id: user.id },
                     update: user,
                     create: user,
-                })
-            }),
-        )
-    }
-
-    const productCount = await prisma.product.count({
-        where: { id },
-    })
-    if (!productCount) {
-        await Promise.all(
-            PRODUCTS_SEED_DATA.map((product) => {
-                return prisma.product.upsert({
-                    where: { id: product.id },
-                    update: product,
-                    create: product,
                 })
             }),
         )

@@ -38,34 +38,9 @@ model User {
   /// @Validator.MaxLength(100)
   /// @Validator.MinLength(3)
   name String?
-
-  products Product[]
-}
-
-model Product {
-  id        String    @id @default(uuid())
-  createdAt DateTime? @default(now())
-  updatedAt DateTime? @default(now()) @updatedAt
-
-  /// @Validator.IsEnum(ProductType)
-  type ProductType
-
-  /// @Validator.IsString()
-  /// @Validator.MaxLength(100)
-  /// @Validator.MinLength(3)
-  name String?
-
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  userId String
 }
 
 enum UserType {
   ADMIN
   CLIENT
-}
-
-enum ProductType {
-  CLOTHES
-  SHOES
-  ELECTRONICS
 }

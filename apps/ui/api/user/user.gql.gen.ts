@@ -16,17 +16,7 @@ export type GetUserVariables = Types.Exact<{
 
 export type GetUser = {
     __typename?: 'Query'
-    user: {
-        __typename?: 'User'
-        type: Types.UserType
-        name?: string | null
-        products?: Array<{
-            __typename?: 'Product'
-            id: string
-            type: Types.ProductType
-            name?: string | null
-        }> | null
-    }
+    user: { __typename?: 'User'; type: Types.UserType; name?: string | null }
 }
 
 export type CreateUserVariables = Types.Exact<{
@@ -115,11 +105,6 @@ export const GetUserDocument = /*#__PURE__*/ gql`
         user(where: { id: $id }) {
             type
             name
-            products {
-                id
-                type
-                name
-            }
         }
     }
 `

@@ -4,7 +4,6 @@ import HomePage from 'src/pages/HomePage'
 import UsersPage from 'src/pages/user/UsersPage'
 import UserPage from 'src/pages/user/UserPage'
 import { ApolloProvider } from '@apollo/client/react'
-import ProductPage from 'src/pages/product/ProductPage'
 import { PAGES } from 'src/constants/pages'
 import LocaleSwitcher from 'src/components/LocaleSwitcher'
 import { Platform } from 'react-native'
@@ -45,7 +44,6 @@ export const App = () => {
                             <Route path={PAGES.Home} Component={HomePage} />
                             <Route path={PAGES.Users} Component={UsersPage} />
                             <Route path={PAGES.User} Component={UserPage} />
-                            <Route path={PAGES.Product} Component={ProductPage} />
                         </Routes>
                     </CustomView>
                 </NativeRouter>

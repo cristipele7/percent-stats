@@ -3,5 +3,4 @@ export const PAGES = {
     Home: '/home',
     Users: '/users',
     User: '/user/:id',
-    Product: '/product/:id',
 }
