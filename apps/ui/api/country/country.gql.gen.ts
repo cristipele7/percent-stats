@@ -7,7 +7,7 @@ export type GetCountriesVariables = Types.Exact<{ [key: string]: never }>
 
 export type GetCountries = {
     __typename?: 'Query'
-    countries: Array<{ __typename?: 'Country'; id: string; apiId: number; name: string }>
+    countries: Array<{ __typename?: 'Country'; id: string; name: string }>
 }
 
 export type CreateCountryVariables = Types.Exact<{
@@ -20,7 +20,7 @@ export type CreateCountry = {
 }
 
 export type DeleteCountryVariables = Types.Exact<{
-    id: Types.Scalars['String']['input']
+    where: Types.CountryWhereUniqueInput
 }>
 
 export type DeleteCountry = {
@@ -32,7 +32,6 @@ export const GetCountriesDocument = /*#__PURE__*/ gql`
     query GetCountries {
         countries {
             id
-            apiId
             name
         }
     }
@@ -129,8 +128,8 @@ export type CreateCountryMutationOptions = Apollo.BaseMutationOptions<
     CreateCountryVariables
 >
 export const DeleteCountryDocument = /*#__PURE__*/ gql`
-    mutation DeleteCountry($id: String!) {
-        deleteCountry(where: { id: $id }) {
+    mutation DeleteCountry($where: CountryWhereUniqueInput!) {
+        deleteCountry(where: $where) {
             id
         }
     }
@@ -150,7 +149,7 @@ export type DeleteCountryMutationFn = Apollo.MutationFunction<DeleteCountry, Del
  * @example
  * const [deleteCountry, { data, loading, error }] = useDeleteCountry({
  *   variables: {
- *      id: // value for 'id'
+ *      where: // value for 'where'
  *   },
  * });
  */

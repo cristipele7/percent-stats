@@ -5,6 +5,7 @@ import * as path from 'path'
 import { UserModule } from '../user/user.module'
 import { APP_PIPE } from '@nestjs/core'
 import { CountryModule } from '../country/country.module'
+import { LeagueModule } from '../league/league.module'
 
 const validationProvider = {
     provide: APP_PIPE,
@@ -20,6 +21,7 @@ const validationProvider = {
         }),
         UserModule,
         CountryModule,
+        LeagueModule,
     ],
     controllers: [],
     providers: [validationProvider],

@@ -1,8 +1,8 @@
 import React from 'react'
-import { StyleProp, Text, TextStyle } from 'react-native'
+import { StyleProp, Text, TextProps, TextStyle } from 'react-native'
 import { getStyles, useTheme } from 'src/styles/ThemeContext'
 
-interface CustomTextProps {
+interface CustomTextProps extends TextProps {
     style?: StyleProp<TextStyle>
     children?: React.ReactNode
 }

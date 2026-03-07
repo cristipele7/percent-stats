@@ -4,7 +4,6 @@ export const GET_COUNTRIES_QUERY = gql`
     query GetCountries {
         countries {
             id
-            apiId
             name
         }
     }

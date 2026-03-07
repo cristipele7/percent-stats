@@ -1,8 +1,8 @@
 import React from 'react'
-import { ScrollView, StyleProp, ViewStyle } from 'react-native'
+import { ScrollView, ScrollViewProps, StyleProp, ViewStyle } from 'react-native'
 import { getStyles, useTheme } from 'src/styles/ThemeContext'
 
-interface CustomViewProps {
+interface CustomViewProps extends ScrollViewProps {
     style?: StyleProp<ViewStyle>
     children?: React.ReactNode
     pointerEvents?: 'auto' | 'none' | 'box-none' | 'box-only'

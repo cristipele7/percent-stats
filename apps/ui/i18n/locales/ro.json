@@ -5,5 +5,9 @@
   "country_name": "Numele tarii",
   "country_api_id": "ID-ul tarii din API",
   "create_country_button_name": "Creeaza tara",
-  "delete_country_button_name": "Sterge tara"
+  "delete_button_name": "Sterge",
+  "go_back_buttom_name": "Inapoi",
+  "league_name": "Numele ligii",
+  "league_api_id": "ID-ul ligii din API",
+  "create_league_button_name": "Creeaza Liga"
 }

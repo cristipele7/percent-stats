@@ -8,18 +8,20 @@ import {
 import { useMutation, useQuery } from '@apollo/client/react'
 import { Country, Mutation, MutationCreateCountryArgs, MutationDeleteCountryArgs } from 'api/types'
 import { useTranslation } from 'react-i18next'
-import HomeLink from './components/HomeLink'
+import ButtonLink from '../../components/ButtonLink'
 import CustomText from 'src/components/CustomText'
 import CustomView from 'src/components/CustomView'
 import { getStyles, useTheme } from 'src/styles/ThemeContext'
+import { useNavigate } from 'react-router-native'
+import { PAGES } from 'src/constants/pages'
 
 const AdminPage = () => {
     const { t } = useTranslation()
     const theme = useTheme()
+    const navigate = useNavigate()
     const themeStyles = getStyles(theme)
 
     const [countryName, setCountryName] = useState('')
-    const [countryApiId, setCountryApiId] = useState<number>(null)
 
     const {
         data: countriesData,
@@ -41,14 +43,12 @@ const AdminPage = () => {
         createCountry({
             variables: {
                 data: {
-                    apiId: countryApiId,
                     name: countryName,
                 },
             },
             refetchQueries: [{ query: GET_COUNTRIES_QUERY }, 'GetCountries'],
         }).then(() => {
             setCountryName(null)
-            setCountryApiId(null)
         })
     }
 
@@ -63,7 +63,7 @@ const AdminPage = () => {
 
     return (
         <CustomView style={styles.container}>
-            <HomeLink />
+            <ButtonLink title={t('back_home_buttom_name')} toPage={PAGES.Home} />
 
             {loading && <CustomText style={themeStyles.title}>{t('loading_message')}</CustomText>}
             {error && <CustomText style={themeStyles.error}>{error.message}</CustomText>}
@@ -77,10 +77,18 @@ const AdminPage = () => {
             {countriesData?.countries?.map((country: Country, index: number) => (
                 <CustomView key={country.id} style={styles.countryContainer}>
                     <CustomView>
-                        {index + 1}. {country.name.toLocaleUpperCase()} - {country.apiId}
+                        <CustomText>
+                            {index + 1}.{' '}
+                            <CustomText
+                                style={styles.countryName}
+                                onPress={() => navigate(`${PAGES.Leagues}/${country.id}`)}
+                            >
+                                {country.name}
+                            </CustomText>
+                        </CustomText>
                     </CustomView>
                     <Button
-                        title={t('delete_country_button_name')}
+                        title={t('delete_button_name')}
                         onPress={() => onDeleteCountry(country.id)}
                         disabled={loadingDelete}
                     />
@@ -94,19 +102,12 @@ const AdminPage = () => {
                     value={countryName ?? ''}
                     onChange={(e) => setCountryName(e.target.value)}
                 />
-                <CustomText>{t('country_api_id')}</CustomText>
-                <input
-                    type="number"
-                    style={styles.input}
-                    value={countryApiId ?? ''}
-                    onChange={(e) => setCountryApiId(+e.target.value)}
-                />
             </CustomView>
 
             <Button
                 title={t('create_country_button_name')}
                 onPress={onCreateCountry}
-                disabled={!countryName || !countryApiId || loadingCreate}
+                disabled={!countryName || loadingCreate}
             />
         </CustomView>
     )
@@ -115,12 +116,18 @@ const AdminPage = () => {
 const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
+        marginBottom: 50,
     },
     countryContainer: {
         display: 'flex',
         flexDirection: 'row',
         gap: 10,
         marginBottom: 10,
+    },
+    countryName: {
+        display: 'contents',
+        textTransform: 'uppercase',
+        cursor: 'pointer',
     },
     inputsContainer: {
         marginTop: 10,
