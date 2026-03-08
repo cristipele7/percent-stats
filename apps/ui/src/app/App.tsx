@@ -12,6 +12,7 @@ import { ThemeProvider } from 'src/styles/ThemeContext'
 import CustomView from 'src/components/CustomView'
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client'
 import LeaguesPage from 'src/pages/admin/leagues'
+import TeamsPage from 'src/pages/admin/teams'
 
 const httpLink = new HttpLink({
     uri: 'http://localhost:3000/graphql',
@@ -44,6 +45,7 @@ export const App = () => {
                             <Route path={PAGES.Home} Component={HomePage} />
                             <Route path={PAGES.Admin} Component={AdminPage} />
                             <Route path={`${PAGES.Leagues}/:countryId`} Component={LeaguesPage} />
+                            <Route path={`${PAGES.Teams}/:countryId`} Component={TeamsPage} />
                         </Routes>
                     </CustomView>
                 </NativeRouter>

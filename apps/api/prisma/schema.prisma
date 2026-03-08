@@ -35,8 +35,6 @@ model User {
   type UserType
 
   /// @Validator.IsString()
-  /// @Validator.MaxLength(100)
-  /// @Validator.MinLength(3)
   name String
 }
 
@@ -46,11 +44,10 @@ model Country {
   updatedAt DateTime? @default(now()) @updatedAt
 
   /// @Validator.IsString()
-  /// @Validator.MaxLength(100)
-  /// @Validator.MinLength(3)
   name String
 
   leagues League[]
+  teams   Team[]
 }
 
 model League {
@@ -62,8 +59,21 @@ model League {
   apiId Float @unique
 
   /// @Validator.IsString()
-  /// @Validator.MaxLength(100)
-  /// @Validator.MinLength(3)
+  name String
+
+  country   Country @relation(fields: [countryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  countryId String
+}
+
+model Team {
+  id        String    @id @default(uuid())
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @default(now()) @updatedAt
+
+  /// @Validator.@IsInt()
+  apiId Float @unique
+
+  /// @Validator.IsString()
   name String
 
   country   Country @relation(fields: [countryId], references: [id], onDelete: Cascade, onUpdate: Cascade)

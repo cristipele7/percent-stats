@@ -52,7 +52,10 @@ const LeaguesPage = () => {
                     country: { connect: { id: countryId } },
                 },
             },
-            refetchQueries: [{ query: GET_LEAGUES_BY_COUNTRY_QUERY }, 'GetLeaguesByCountry'],
+            refetchQueries: [
+                { query: GET_LEAGUES_BY_COUNTRY_QUERY, variables: { countryId } },
+                'GetLeaguesByCountry',
+            ],
         }).then(() => {
             setLeagueName(null)
             setLeagueApiId(null)
@@ -64,13 +67,17 @@ const LeaguesPage = () => {
             variables: {
                 where: { id },
             },
-            refetchQueries: [{ query: GET_LEAGUES_BY_COUNTRY_QUERY }, 'GetLeaguesByCountry'],
+            refetchQueries: [
+                { query: GET_LEAGUES_BY_COUNTRY_QUERY, variables: { countryId } },
+                'GetLeaguesByCountry',
+            ],
         })
     }
 
     return (
         <CustomView style={styles.container}>
             <ButtonLink title={t('go_back_buttom_name')} toPage={PAGES.Admin} />
+            <ButtonLink title={t('add_team_buttom_name')} toPage={`${PAGES.Teams}/${countryId}`} />
 
             {loading && <CustomText style={themeStyles.title}>{t('loading_message')}</CustomText>}
             {error && <CustomText style={themeStyles.error}>{error.message}</CustomText>}
@@ -80,21 +87,6 @@ const LeaguesPage = () => {
             {deleteLeagueError && (
                 <CustomText style={themeStyles.error}>{deleteLeagueError.message}</CustomText>
             )}
-
-            {leaguesData?.leaguesByCountry?.map((league: League, index: number) => (
-                <CustomView key={league.id} style={styles.leagueContainer}>
-                    <CustomView>
-                        {index + 1}.{' '}
-                        <CustomView style={styles.leagueName}>{league.name}</CustomView> -{' '}
-                        {league.apiId}
-                    </CustomView>
-                    <Button
-                        title={t('delete_button_name')}
-                        onPress={() => onDeleteLeague(league.id)}
-                        disabled={loadingDelete}
-                    />
-                </CustomView>
-            ))}
 
             <CustomView style={styles.inputsContainer}>
                 <CustomText>{t('league_name')}</CustomText>
@@ -117,6 +109,25 @@ const LeaguesPage = () => {
                 onPress={onCreateLeague}
                 disabled={!leagueName || !leagueApiId || loadingCreate}
             />
+
+            <CustomView style={styles.leaguesContainer}>
+                {leaguesData?.leaguesByCountry?.map((league: League, index: number) => (
+                    <CustomView key={league.id} style={styles.leagueContainer}>
+                        <CustomView>
+                            <CustomText>
+                                {index + 1}.{' '}
+                                <CustomText style={styles.leagueName}>{league.name}</CustomText> -{' '}
+                                {league.apiId}
+                            </CustomText>
+                        </CustomView>
+                        <Button
+                            title={t('delete_button_name')}
+                            onPress={() => onDeleteLeague(league.id)}
+                            disabled={loadingDelete}
+                        />
+                    </CustomView>
+                ))}
+            </CustomView>
         </CustomView>
     )
 }
@@ -125,6 +136,9 @@ const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
         marginBottom: 50,
+    },
+    leaguesContainer: {
+        marginTop: 20,
     },
     leagueContainer: {
         display: 'flex',

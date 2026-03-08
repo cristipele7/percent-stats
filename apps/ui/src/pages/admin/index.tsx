@@ -74,27 +74,6 @@ const AdminPage = () => {
                 <CustomText style={themeStyles.error}>{deleteCountryError.message}</CustomText>
             )}
 
-            {countriesData?.countries?.map((country: Country, index: number) => (
-                <CustomView key={country.id} style={styles.countryContainer}>
-                    <CustomView>
-                        <CustomText>
-                            {index + 1}.{' '}
-                            <CustomText
-                                style={styles.countryName}
-                                onPress={() => navigate(`${PAGES.Leagues}/${country.id}`)}
-                            >
-                                {country.name}
-                            </CustomText>
-                        </CustomText>
-                    </CustomView>
-                    <Button
-                        title={t('delete_button_name')}
-                        onPress={() => onDeleteCountry(country.id)}
-                        disabled={loadingDelete}
-                    />
-                </CustomView>
-            ))}
-
             <CustomView style={styles.inputsContainer}>
                 <CustomText>{t('country_name')}</CustomText>
                 <input
@@ -109,6 +88,29 @@ const AdminPage = () => {
                 onPress={onCreateCountry}
                 disabled={!countryName || loadingCreate}
             />
+
+            <CustomView style={styles.countriesContainer}>
+                {countriesData?.countries?.map((country: Country, index: number) => (
+                    <CustomView key={country.id} style={styles.countryContainer}>
+                        <CustomView>
+                            <CustomText>
+                                {index + 1}.{' '}
+                                <CustomText
+                                    style={styles.countryName}
+                                    onPress={() => navigate(`${PAGES.Leagues}/${country.id}`)}
+                                >
+                                    {country.name}
+                                </CustomText>
+                            </CustomText>
+                        </CustomView>
+                        <Button
+                            title={t('delete_button_name')}
+                            onPress={() => onDeleteCountry(country.id)}
+                            disabled={loadingDelete}
+                        />
+                    </CustomView>
+                ))}
+            </CustomView>
         </CustomView>
     )
 }
@@ -117,6 +119,9 @@ const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
         marginBottom: 50,
+    },
+    countriesContainer: {
+        marginTop: 20,
     },
     countryContainer: {
         display: 'flex',

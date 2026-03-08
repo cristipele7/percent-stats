@@ -9,5 +9,9 @@
   "go_back_buttom_name": "Go Back",
   "league_name": "League Name",
   "league_api_id": "League API ID",
-  "create_league_button_name": "Create League"
+  "create_league_button_name": "Create League",
+  "add_team_buttom_name": "Add Team",
+  "team_name": "Team Name",
+  "team_api_id": "Team API ID",
+  "create_team_button_name": "Create Team"
 }
