@@ -55,7 +55,7 @@ model League {
   createdAt DateTime? @default(now())
   updatedAt DateTime? @default(now()) @updatedAt
 
-  /// @Validator.@IsInt()
+  /// @Validator.@IsNumber()
   apiId Float @unique
 
   /// @Validator.IsString()
@@ -63,6 +63,8 @@ model League {
 
   country   Country @relation(fields: [countryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   countryId String
+
+  matches Match[]
 }
 
 model Team {
@@ -70,7 +72,7 @@ model Team {
   createdAt DateTime? @default(now())
   updatedAt DateTime? @default(now()) @updatedAt
 
-  /// @Validator.@IsInt()
+  /// @Validator.@IsNumber()
   apiId Float @unique
 
   /// @Validator.IsString()
@@ -78,9 +80,49 @@ model Team {
 
   country   Country @relation(fields: [countryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   countryId String
+
+  homeMatches Match[] @relation("HomeTeam")
+  awayMatches Match[] @relation("AwayTeam")
+}
+
+model Match {
+  id        String    @id @default(uuid())
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @default(now()) @updatedAt
+
+  /// @Validator.@IsNumber()
+  apiId Float @unique
+
+  /// @Validator.IsDate()
+  date DateTime
+
+  /// @Validator.@IsInt()
+  round Int
+
+  /// @Validator.IsEnum(UserType)
+  state MatchState
+
+  league   League @relation(fields: [leagueId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  leagueId String
+
+  homeTeam      Team   @relation("HomeTeam", fields: [homeTeamId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  homeTeamId    String
+  homeTeamGoals Int
+
+  awayTeam      Team   @relation("AwayTeam", fields: [awayTeamId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  awayTeamId    String
+  awayTeamGoals Int
 }
 
 enum UserType {
   ADMIN
   CLIENT
+}
+
+enum MatchState {
+  NOT_STARTED
+  FIRST_HALF
+  HALF_TIME
+  SECOND_HALF
+  FULL_TIME
 }
