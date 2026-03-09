@@ -105,12 +105,16 @@ model Match {
   league   League @relation(fields: [leagueId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   leagueId String
 
-  homeTeam      Team   @relation("HomeTeam", fields: [homeTeamId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  homeTeamId    String
+  homeTeam   Team   @relation("HomeTeam", fields: [homeTeamId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  homeTeamId String
+
+  /// @Validator.@IsInt()
   homeTeamGoals Int
 
-  awayTeam      Team   @relation("AwayTeam", fields: [awayTeamId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  awayTeamId    String
+  awayTeam   Team   @relation("AwayTeam", fields: [awayTeamId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  awayTeamId String
+
+  /// @Validator.@IsInt()
   awayTeamGoals Int
 }
 
