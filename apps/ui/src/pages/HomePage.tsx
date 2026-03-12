@@ -6,6 +6,7 @@ import { Link } from 'react-router-native'
 import CustomText from 'src/components/CustomText'
 import CustomView from 'src/components/CustomView'
 import { getStyles, useTheme } from 'src/styles/ThemeContext'
+import ButtonLink from 'src/components/ButtonLink'
 
 const HomePage = () => {
     const { t } = useTranslation()
@@ -14,9 +15,8 @@ const HomePage = () => {
 
     return (
         <CustomView style={styles.container}>
-            <Link to={PAGES.Admin}>
-                <CustomText style={themeStyles.title}>{t('go_to_admin_buttom_name')}</CustomText>
-            </Link>
+            <ButtonLink title={t('go_to_admin_buttom_name')} toPage={PAGES.Admin} />
+            <ButtonLink title={t('go_to_matches_buttom_name')} toPage={PAGES.Matches} />
         </CustomView>
     )
 }

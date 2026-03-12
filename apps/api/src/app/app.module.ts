@@ -1,12 +1,14 @@
 import { Module, ValidationPipe } from '@nestjs/common'
 import { GraphQLModule } from '@nestjs/graphql'
 import { MercuriusDriver, MercuriusDriverConfig } from '@nestjs/mercurius'
+import { ScheduleModule } from '@nestjs/schedule'
 import * as path from 'path'
 import { UserModule } from '../user/user.module'
 import { APP_PIPE } from '@nestjs/core'
 import { CountryModule } from '../country/country.module'
 import { LeagueModule } from '../league/league.module'
 import { TeamModule } from '../team/team.module'
+import { MatchModule } from '../match/match.module'
 
 const validationProvider = {
     provide: APP_PIPE,
@@ -15,6 +17,7 @@ const validationProvider = {
 
 @Module({
     imports: [
+        ScheduleModule.forRoot(),
         GraphQLModule.forRoot<MercuriusDriverConfig>({
             driver: MercuriusDriver,
             graphiql: true,
@@ -24,6 +27,7 @@ const validationProvider = {
         CountryModule,
         LeagueModule,
         TeamModule,
+        MatchModule,
     ],
     controllers: [],
     providers: [validationProvider],

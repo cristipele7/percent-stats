@@ -6,6 +6,9 @@ export const apiEnv: IApiEnv = {
     db: {
         url: process.env.DATABASE_URL,
     },
+    footballApi: {
+        key: process.env.FOOTBALL_API_KEY,
+    },
 }
 
 export interface IApiEnv {
@@ -15,5 +18,8 @@ export interface IApiEnv {
     }
     db: {
         url: string | undefined
+    }
+    footballApi: {
+        key: string | undefined
     }
 }

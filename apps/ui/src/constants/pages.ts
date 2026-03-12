@@ -4,6 +4,7 @@ export const PAGES = {
     Admin: '/admin',
     Leagues: '/leagues',
     Teams: '/teams',
+    Matches: '/matches',
 }
 
 export type PagesType = (typeof PAGES)[keyof typeof PAGES]

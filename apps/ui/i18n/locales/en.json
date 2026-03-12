@@ -1,6 +1,7 @@
 {
   "loading_message": "Loading...",
   "go_to_admin_buttom_name": "Go to Admin",
+  "go_to_matches_buttom_name": "Go to Matches",
   "back_home_buttom_name": "Back to Home",
   "country_name": "Country Name",
   "country_api_id": "Country API ID",
