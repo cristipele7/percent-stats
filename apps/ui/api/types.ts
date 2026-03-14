@@ -20,6 +20,19 @@ export type Scalars = {
     DateTime: { input: any; output: any }
 }
 
+export type ApiFootballFixtureType = {
+    __typename?: 'ApiFootballFixtureType'
+    fixture: FixtureInfo
+    goals: FixtureGoals
+    league: FixtureLeague
+    teams: FixtureTeams
+}
+
+export type BoolFilter = {
+    equals?: InputMaybe<Scalars['Boolean']['input']>
+    not?: InputMaybe<BoolFilter>
+}
+
 export type Country = {
     __typename?: 'Country'
     _count: CountryCount
@@ -161,6 +174,44 @@ export type EnumUserTypeFilter = {
     in?: InputMaybe<Array<UserType>>
     not?: InputMaybe<EnumUserTypeFilter>
     notIn?: InputMaybe<Array<UserType>>
+}
+
+export type FixtureGoals = {
+    __typename?: 'FixtureGoals'
+    away?: Maybe<Scalars['Int']['output']>
+    home?: Maybe<Scalars['Int']['output']>
+}
+
+export type FixtureInfo = {
+    __typename?: 'FixtureInfo'
+    date: Scalars['String']['output']
+    id: Scalars['Int']['output']
+    status: FixtureStatus
+}
+
+export type FixtureLeague = {
+    __typename?: 'FixtureLeague'
+    country: Scalars['String']['output']
+    id: Scalars['Int']['output']
+    name: Scalars['String']['output']
+    round: Scalars['String']['output']
+}
+
+export type FixtureStatus = {
+    __typename?: 'FixtureStatus'
+    short: Scalars['String']['output']
+}
+
+export type FixtureTeam = {
+    __typename?: 'FixtureTeam'
+    id: Scalars['Int']['output']
+    name: Scalars['String']['output']
+}
+
+export type FixtureTeams = {
+    __typename?: 'FixtureTeams'
+    away: FixtureTeam
+    home: FixtureTeam
 }
 
 export type FloatFilter = {
@@ -631,6 +682,7 @@ export type Mutation = {
     __typename?: 'Mutation'
     createCountry: Country
     createLeague: League
+    createMatchFromAPI: Match
     createTeam: Team
     createUser: User
     deleteCountry: Country
@@ -646,6 +698,11 @@ export type MutationCreateCountryArgs = {
 
 export type MutationCreateLeagueArgs = {
     data: LeagueCreateInput
+}
+
+export type MutationCreateMatchFromApiArgs = {
+    apiId: Scalars['Float']['input']
+    unsyncedTeamApiId?: InputMaybe<Scalars['Float']['input']>
 }
 
 export type MutationCreateTeamArgs = {
@@ -679,19 +736,30 @@ export type MutationUpdateUserArgs = {
 
 export type Query = {
     __typename?: 'Query'
+    allMatchesForTeams: Array<Match>
     countries: Array<Country>
     leaguesByCountry: Array<League>
-    matchesByDate: Array<Match>
+    matchByApiId: Match
+    matchesByDateFromAPI: Array<ApiFootballFixtureType>
     teamsByCountry: Array<Team>
     user: User
     users: Array<User>
+}
+
+export type QueryAllMatchesForTeamsArgs = {
+    awayTeamId: Scalars['String']['input']
+    homeTeamId: Scalars['String']['input']
 }
 
 export type QueryLeaguesByCountryArgs = {
     countryId: Scalars['String']['input']
 }
 
-export type QueryMatchesByDateArgs = {
+export type QueryMatchByApiIdArgs = {
+    apiId: Scalars['Float']['input']
+}
+
+export type QueryMatchesByDateFromApiArgs = {
     date: Scalars['String']['input']
 }
 
@@ -735,6 +803,7 @@ export type Team = {
     homeMatches?: Maybe<Array<Match>>
     id: Scalars['ID']['output']
     name: Scalars['String']['output']
+    synced: Scalars['Boolean']['output']
     updatedAt?: Maybe<Scalars['DateTime']['output']>
 }
 
@@ -757,6 +826,7 @@ export type TeamCountAggregate = {
     createdAt: Scalars['Int']['output']
     id: Scalars['Int']['output']
     name: Scalars['Int']['output']
+    synced: Scalars['Int']['output']
     updatedAt: Scalars['Int']['output']
 }
 
@@ -768,6 +838,7 @@ export type TeamCreateInput = {
     homeMatches?: InputMaybe<MatchCreateNestedManyWithoutHomeTeamInput>
     id?: InputMaybe<Scalars['String']['input']>
     name: Scalars['String']['input']
+    synced?: InputMaybe<Scalars['Boolean']['input']>
     updatedAt?: InputMaybe<Scalars['DateTime']['input']>
 }
 
@@ -776,6 +847,7 @@ export type TeamCreateManyCountryInput = {
     createdAt?: InputMaybe<Scalars['DateTime']['input']>
     id?: InputMaybe<Scalars['String']['input']>
     name: Scalars['String']['input']
+    synced?: InputMaybe<Scalars['Boolean']['input']>
     updatedAt?: InputMaybe<Scalars['DateTime']['input']>
 }
 
@@ -825,6 +897,7 @@ export type TeamCreateWithoutAwayMatchesInput = {
     homeMatches?: InputMaybe<MatchCreateNestedManyWithoutHomeTeamInput>
     id?: InputMaybe<Scalars['String']['input']>
     name: Scalars['String']['input']
+    synced?: InputMaybe<Scalars['Boolean']['input']>
     updatedAt?: InputMaybe<Scalars['DateTime']['input']>
 }
 
@@ -835,6 +908,7 @@ export type TeamCreateWithoutCountryInput = {
     homeMatches?: InputMaybe<MatchCreateNestedManyWithoutHomeTeamInput>
     id?: InputMaybe<Scalars['String']['input']>
     name: Scalars['String']['input']
+    synced?: InputMaybe<Scalars['Boolean']['input']>
     updatedAt?: InputMaybe<Scalars['DateTime']['input']>
 }
 
@@ -845,6 +919,7 @@ export type TeamCreateWithoutHomeMatchesInput = {
     createdAt?: InputMaybe<Scalars['DateTime']['input']>
     id?: InputMaybe<Scalars['String']['input']>
     name: Scalars['String']['input']
+    synced?: InputMaybe<Scalars['Boolean']['input']>
     updatedAt?: InputMaybe<Scalars['DateTime']['input']>
 }
 
@@ -861,6 +936,7 @@ export type TeamMaxAggregate = {
     createdAt?: Maybe<Scalars['DateTime']['output']>
     id?: Maybe<Scalars['String']['output']>
     name?: Maybe<Scalars['String']['output']>
+    synced?: Maybe<Scalars['Boolean']['output']>
     updatedAt?: Maybe<Scalars['DateTime']['output']>
 }
 
@@ -871,6 +947,7 @@ export type TeamMinAggregate = {
     createdAt?: Maybe<Scalars['DateTime']['output']>
     id?: Maybe<Scalars['String']['output']>
     name?: Maybe<Scalars['String']['output']>
+    synced?: Maybe<Scalars['Boolean']['output']>
     updatedAt?: Maybe<Scalars['DateTime']['output']>
 }
 
@@ -896,6 +973,7 @@ export type TeamWhereInput = {
     homeMatches?: InputMaybe<MatchListRelationFilter>
     id?: InputMaybe<StringFilter>
     name?: InputMaybe<StringFilter>
+    synced?: InputMaybe<BoolFilter>
     updatedAt?: InputMaybe<DateTimeFilter>
 }
 
@@ -911,6 +989,7 @@ export type TeamWhereUniqueInput = {
     homeMatches?: InputMaybe<MatchListRelationFilter>
     id?: InputMaybe<Scalars['String']['input']>
     name?: InputMaybe<StringFilter>
+    synced?: InputMaybe<BoolFilter>
     updatedAt?: InputMaybe<DateTimeFilter>
 }
 

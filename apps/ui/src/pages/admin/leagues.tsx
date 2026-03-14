@@ -77,7 +77,7 @@ const LeaguesPage = () => {
     return (
         <CustomView style={styles.container}>
             <ButtonLink title={t('go_back_buttom_name')} toPage={PAGES.Admin} />
-            <ButtonLink title={t('add_team_buttom_name')} toPage={`${PAGES.Teams}/${countryId}`} />
+            <ButtonLink title={t('teams_buttom_name')} toPage={`${PAGES.Teams}/${countryId}`} />
 
             {loading && <CustomText style={themeStyles.title}>{t('loading_message')}</CustomText>}
             {error && <CustomText style={themeStyles.error}>{error.message}</CustomText>}

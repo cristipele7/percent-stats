@@ -1,26 +1,29 @@
 import React from 'react'
-import { StyleSheet } from 'react-native'
+import { Button, StyleSheet } from 'react-native'
 import { GET_MATCHES_BY_DATE_QUERY } from 'api/match/match.gql'
 import { useQuery } from '@apollo/client/react'
-import { Match } from 'api/types'
+import { ApiFootballFixtureType } from 'api/types'
 import { useTranslation } from 'react-i18next'
 import ButtonLink from '../../components/ButtonLink'
 import CustomText from 'src/components/CustomText'
 import CustomView from 'src/components/CustomView'
 import { getStyles, useTheme } from 'src/styles/ThemeContext'
 import { PAGES } from 'src/constants/pages'
+import { useNavigate } from 'react-router-native'
+import dayjs from 'dayjs'
 
 const MatchesPage = () => {
     const { t } = useTranslation()
+    const navigate = useNavigate()
     const theme = useTheme()
     const themeStyles = getStyles(theme)
 
-    const date = new Date().toISOString().split('T')[0]
+    const date = dayjs().toISOString().split('T')[0]
     const {
         data: matchesData,
         loading,
         error,
-    } = useQuery<{ matchesByDate: Match[] }>(GET_MATCHES_BY_DATE_QUERY, {
+    } = useQuery<{ matchesByDateFromAPI: ApiFootballFixtureType[] }>(GET_MATCHES_BY_DATE_QUERY, {
         variables: { date },
     })
 
@@ -32,15 +35,18 @@ const MatchesPage = () => {
             {error && <CustomText style={themeStyles.error}>{error.message}</CustomText>}
 
             <CustomView style={styles.matchesContainer}>
-                {matchesData?.matchesByDate?.map((match: Match) => (
-                    <CustomView key={match.id} style={styles.matchContainer}>
-                        <CustomView>
-                            <CustomText>
-                                {match.state} - {match.homeTeam.name} vs {match.awayTeam.name} -{' '}
-                                {match.league.name} - ({match.homeTeamGoals} : {match.awayTeamGoals}
-                                )
-                            </CustomText>
-                        </CustomView>
+                {matchesData?.matchesByDateFromAPI?.map((match: ApiFootballFixtureType) => (
+                    <CustomView key={match.fixture.id} style={styles.matchContainer}>
+                        <CustomText>
+                            {dayjs(match.fixture.date).format('HH:mm')}. {match.league.country} -{' '}
+                            {match.league.name} -&gt; {match.teams.home.name} vs{' '}
+                            {match.teams.away.name} - {match.goals.home} : {match.goals.away} (
+                            {match.fixture.status.short})
+                        </CustomText>
+                        <Button
+                            title={t('info_button_name')}
+                            onPress={() => navigate(`${PAGES.Match}/${match.fixture.id}`)}
+                        />
                     </CustomView>
                 ))}
             </CustomView>

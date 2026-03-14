@@ -78,6 +78,9 @@ model Team {
   /// @Validator.IsString()
   name String
 
+  /// @Validator.IsBoolean()
+  synced Boolean @default(false)
+
   country   Country @relation(fields: [countryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   countryId String
 

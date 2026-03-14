@@ -32,7 +32,7 @@ interface Theme {
 const defaultTheme: Theme = {
     colors: {
         background: {
-            primary: 'lightgray',
+            primary: 'white',
         },
         text: {
             primary: 'darkgreen',
@@ -42,9 +42,9 @@ const defaultTheme: Theme = {
     },
     typography: {
         fontSize: {
-            small: Platform.OS === 'web' ? 12 : 10,
-            medium: Platform.OS === 'web' ? 14 : 12,
-            large: Platform.OS === 'web' ? 20 : 18,
+            small: Platform.OS === 'web' ? 14 : 10,
+            medium: Platform.OS === 'web' ? 18 : 12,
+            large: Platform.OS === 'web' ? 24 : 18,
         },
         fontFamily: {
             primary: 'Montserrat-Regular',

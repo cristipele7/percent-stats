@@ -1,3 +1,4 @@
+import dayjs from 'dayjs'
 import { Injectable, Logger } from '@nestjs/common'
 import { Cron, CronExpression } from '@nestjs/schedule'
 import axios from 'axios'
@@ -5,8 +6,9 @@ import { MatchState } from '@prisma/client'
 import { apiEnv } from '../../env-vars'
 import prisma from '../../prisma'
 import { INCLUDED_LEAGUES, LEAGUE_NAMES_BY_API_ID } from '../constants'
+import { parseRound } from './match.utils'
 
-interface ApiFootballFixture {
+export interface ApiFootballFixture {
     fixture: {
         id: number
         date: string
@@ -16,6 +18,7 @@ interface ApiFootballFixture {
     }
     league: {
         id: number
+        name: string
         country: string
         round: string
     }
@@ -29,7 +32,7 @@ interface ApiFootballFixture {
     }
 }
 
-const STATUS_MAP: Record<string, MatchState> = {
+export const STATUS_MAP: Record<string, MatchState> = {
     NS: MatchState.NOT_STARTED,
     '1H': MatchState.FIRST_HALF,
     HT: MatchState.HALF_TIME,
@@ -41,15 +44,11 @@ const STATUS_MAP: Record<string, MatchState> = {
 export class MatchJob {
     private readonly logger = new Logger(MatchJob.name)
 
-    @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
+    @Cron(CronExpression.EVERY_YEAR)
     async fetchDailyMatches() {
         this.logger.log('Fetching matches for today and tomorrow...')
 
-        const today = new Date()
-        const tomorrow = new Date(today)
-        tomorrow.setDate(today.getDate() + 1)
-
-        const dates = [today, tomorrow].map((d) => d.toISOString().split('T')[0])
+        const dates = [dayjs(), dayjs().add(1, 'day')].map((d) => d.format('YYYY-MM-DD'))
 
         for (const date of dates) {
             await this.fetchMatchesForDate(date)
@@ -59,7 +58,6 @@ export class MatchJob {
     }
 
     private async fetchMatchesForDate(date: string) {
-        console.log(`Fetching matches for ${date}... ${Object.keys(LEAGUE_NAMES_BY_API_ID).length} leagues`)
         const response = await axios.get<{ response: ApiFootballFixture[] }>(
             'https://v3.football.api-sports.io/fixtures',
             {
@@ -112,13 +110,13 @@ export class MatchJob {
             })
 
             const state = STATUS_MAP[item.fixture.status.short] ?? MatchState.NOT_STARTED
-            const round = this.parseRound(item.league.round)
+            const round = parseRound(item.league.round)
 
             await prisma.match.upsert({
                 where: { apiId: item.fixture.id },
                 create: {
                     apiId: item.fixture.id,
-                    date: new Date(item.fixture.date),
+                    date: dayjs(item.fixture.date).toDate(),
                     round,
                     state,
                     leagueId: league.id,
@@ -138,10 +136,5 @@ export class MatchJob {
         this.logger.log(
             `Processed ${fixtures.length} fixtures for ${date} (filtered by included leagues)`,
         )
-    }
-
-    private parseRound(round: string): number {
-        const match = round.match(/\d+/)
-        return match ? parseInt(match[0], 10) : 0
     }
 }

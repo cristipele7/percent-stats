@@ -14,6 +14,7 @@ import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client'
 import LeaguesPage from 'src/pages/admin/leagues'
 import TeamsPage from 'src/pages/admin/teams'
 import MatchesPage from 'src/pages/matches'
+import MatchPage from 'src/pages/matches/match'
 
 const httpLink = new HttpLink({
     uri: 'http://localhost:3000/graphql',
@@ -48,6 +49,7 @@ export const App = () => {
                             <Route path={`${PAGES.Leagues}/:countryId`} Component={LeaguesPage} />
                             <Route path={`${PAGES.Teams}/:countryId`} Component={TeamsPage} />
                             <Route path={PAGES.Matches} Component={MatchesPage} />
+                            <Route path={`${PAGES.Match}/:apiId`} Component={MatchPage} />
                         </Routes>
                     </CustomView>
                 </NativeRouter>

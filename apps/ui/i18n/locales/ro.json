@@ -11,8 +11,9 @@
   "league_name": "Numele ligii",
   "league_api_id": "ID-ul ligii din API",
   "create_league_button_name": "Creeaza Liga",
-  "add_team_buttom_name": "Adauga Echipa",
+  "teams_buttom_name": "Echipe",
   "team_name": "Numele echipei",
   "team_api_id": "ID-ul echipei din API",
-  "create_team_button_name": "Creeaza Echipa"
+  "create_team_button_name": "Creeaza Echipa",
+  "info_button_name": "Info"
 }
